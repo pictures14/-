@@ -2,101 +2,34 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>로그인</title>
-
 <style>
-body {
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(135deg,#0a0a0a,#1a1a1a);
-  font-family:sans-serif;
-  color:white;
-}
-
-/* 로그인 박스 */
-.box {
-  background:#111;
-  padding:40px;
-  border-radius:20px;
-  text-align:center;
-  box-shadow:0 0 20px rgba(255,215,0,0.2);
-  width:300px;
-}
-
-/* 로고 이미지 */
-.logo {
-  width:80px;
-  margin-bottom:15px;
-  filter: drop-shadow(0 0 10px rgba(255,215,0,0.5));
-}
-
-h1 {
-  margin-bottom:15px;
-  color:#ffd700;
-}
-
-input {
-  width:90%;
-  padding:12px;
-  margin:10px 0;
-  border:none;
-  border-radius:10px;
-  background:#1c1c1c;
-  color:white;
-  outline: none;
-}
-
-input:focus {
-  border: 1px solid #ffd700;
-}
-
-button {
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:#ffd700;
-  color:black;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top: 10px;
-  transition: 0.3s;
-}
-
-button:hover {
-  background: #e6c200;
-}
-
-#msg {
-  margin-top:15px;
-  color:#ff4d4d;
-  font-size: 14px;
-}
+  body { margin:0; height:100vh; display:flex; justify-content:center; align-items:center; background:linear-gradient(135deg,#0a0a0a,#1a1a1a); font-family:sans-serif; color:white; }
+  .box { background:#111; padding:40px; border-radius:20px; text-align:center; box-shadow:0 0 20px rgba(255,215,0,0.2); width:300px; }
+  .logo { width:80px; margin-bottom:15px; filter: drop-shadow(0 0 10px rgba(255,215,0,0.5)); }
+  h1 { margin-bottom:15px; color:#ffd700; }
+  input { width:90%; padding:12px; margin:10px 0; border:none; border-radius:10px; background:#1c1c1c; color:white; outline: none; }
+  input:focus { border: 1px solid #ffd700; }
+  button { width:100%; padding:12px; border:none; border-radius:10px; background:#ffd700; color:black; font-weight:bold; cursor:pointer; margin-top: 10px; transition: 0.3s; }
+  button:hover { background: #e6c200; }
+  #msg { margin-top:15px; color:#ff4d4d; font-size: 14px; }
 </style>
-
 </head>
 <body>
 
 <div class="box">
   <img src="logo.png" class="logo" alt="Logo">
-
   <h1>로그인</h1>
-
   <input id="id" placeholder="아이디">
   <input id="pw" type="password" placeholder="비밀번호">
-
   <button onclick="login()">로그인</button>
-
   <p id="msg"></p>
 </div>
 
 <script>
-// 이미 로그인된 상태라면 바로 메인으로 이동
 if(localStorage.getItem("login") === "true") {
-  location.href = "index.html";
+  window.location.replace("./index.html");
 }
 
 function login(){
@@ -104,34 +37,24 @@ function login(){
   const pw = document.getElementById('pw').value;
   const msg = document.getElementById("msg");
 
-  // 로그인 전 기존 세션 데이터 깔끔하게 정리 (선택사항)
-  localStorage.removeItem("login");
-  localStorage.removeItem("role");
-
   if(id === "yun" && pw === "0520") {
-    // 관리자 계정
     localStorage.setItem("login", "true");
     localStorage.setItem("role", "admin");
-    location.href = "index.html";
+    window.location.replace("./index.html");
   }
   else if(id === "user" && pw === "1234") {
-    // 일반 유저 계정
     localStorage.setItem("login", "true");
     localStorage.setItem("role", "user");
-    location.href = "index.html";
+    window.location.replace("./index.html");
   }
   else {
     msg.innerText = "아이디 또는 비밀번호가 올바르지 않습니다.";
   }
 }
 
-// 엔터 키를 눌러도 로그인 되게 추가
 document.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    login();
-  }
+  if (e.key === 'Enter') login();
 });
 </script>
-
 </body>
 </html>
