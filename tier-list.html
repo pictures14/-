@@ -2,24 +2,20 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>유저 목록 (실시간 공유)</title>
 <style>
-  body { background:#0a0a0a; color:white; text-align:center; font-family:sans-serif; }
-  
-  /* 버튼 컨테이너 */
-  .top-buttons { position:absolute; top:20px; right:20px; display: flex; gap: 10px; }
-  
+  body { background:#0a0a0a; color:white; text-align:center; font-family:sans-serif; margin: 0; padding-top: 60px; }
+  .top-buttons { position:fixed; top:20px; right:20px; display: flex; gap: 10px; z-index: 100; }
   .home-btn { padding:8px 12px; background:#333; color:white; border:1px solid #555; cursor:pointer; border-radius:5px; font-weight:bold; transition: 0.3s; }
   .home-btn:hover { background: #444; border-color: #ffd700; }
-  
   .logout { padding:8px 12px; background:#ffd700; border:none; cursor:pointer; border-radius:5px; font-weight:bold; color:black; }
-  
   input { margin:5px; padding:10px; border-radius:5px; border:none; background:#1c1c1c; color:white; }
   table { margin:30px auto; border-collapse:collapse; width:90%; max-width:800px; }
   th, td { border:1px solid #444; padding:12px; }
   th { background:#222; color:#ffd700; }
   tr:nth-child(even) { background:#161616; }
-  .add-btn { padding:10px 20px; background:#ffd700; border:none; cursor:pointer; font-weight:bold; border-radius:5px; }
+  .add-btn { padding:10px 20px; background:#ffd700; border:none; cursor:pointer; font-weight:bold; border-radius:5px; color: black; }
   .del-btn { background:#ff4d4d; color:white; border:none; padding:5px 10px; cursor:pointer; border-radius:5px; }
   a { color: #ffd700; text-decoration: none; font-weight: bold; }
 </style>
@@ -27,7 +23,7 @@
 <body>
 
 <div class="top-buttons">
-  <button class="home-btn" onclick="location.href='index.html'">홈으로</button>
+  <button class="home-btn" onclick="location.href='./index.html'">홈으로</button>
   <button class="logout" onclick="logout()">로그아웃</button>
 </div>
 
@@ -69,7 +65,7 @@
   const usersCol = collection(db, "users");
 
   const role = localStorage.getItem("role");
-  if (localStorage.getItem("login") !== "true") location.href = "login.html";
+  if (localStorage.getItem("login") !== "true") window.location.replace("./login.html");
 
   if (role === "admin") {
     document.getElementById("adminHeader").style.display = "";
@@ -113,7 +109,7 @@
   window.logout = () => {
     localStorage.removeItem("login");
     localStorage.removeItem("role");
-    location.href = "login.html";
+    window.location.replace("./login.html");
   };
 </script>
 </body>
